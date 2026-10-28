@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens — "Ultramarine"
+   Mist #EEEDF8 · Indigo ink #14143A · Ultramarine #3B3BFF · Marigold #FFB800
+   Light is the default; [data-theme="dark"] swaps the surfaces.
+------------------------------------------------------------------- */
+:root,
+[data-theme="light"] {
+  --bg: #eeedf8;
+  --surface: #e2e0f4;
+  --line: #cbc8ea;
+  --fg: #14143a;
+  --muted: #55557f;
+  --accent: #3b3bff;
+  --on-accent: #f6f5ff;
+  --accent-text: #2b2be6;
+  --pop: #ffb800;
+  --stage: #3b3bff;
+  --ink: #14143a;
+  --mist: #eeedf8;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0e0f2e;
+  --surface: #17184a;
+  --line: #2d2f72;
+  --fg: #eeedf8;
+  --muted: #a3a2d6;
+  --accent: #ffb800;
+  --on-accent: #14143a;
+  --accent-text: #ffb800;
+  --pop: #ffb800;
+  --stage: #3b3bff;
+  --ink: #14143a;
+  --mist: #eeedf8;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--bg);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-text: var(--accent-text);
+  --color-pop: var(--pop);
+  --color-stage: var(--stage);
+  --color-ink: var(--ink);
+  --color-mist: var(--mist);
+  --font-sans: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader Variable", ui-serif, Georgia, serif;
+}
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------- */
+html { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+html[data-intro="on"] body { overflow: hidden; }
+
+::selection { background: var(--pop); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 4px; }
+
+/* Preloader is hidden unless the head script decided this is a first visit. */
+.preloader { display: none; }
+html[data-intro="on"] .preloader { display: flex; }
+
+/* Desktop pinned stage vs. simple list. Deterministic, no JS needed. */
+.wk-desktop { display: none; }
+.wk-list { display: block; }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .wk-desktop { display: block; }
+  .wk-list { display: none; }
+}
+
+/* ------------------------------------------------------------------
+   Components
+------------------------------------------------------------------- */
+@layer components {
+  .container-x { width: min(100% - 2.5rem, 96rem); margin-inline: auto; }
+
+  /* Type scale: condensed, heavy display; the type is the poster. */
+  .t-display {
+    font-weight: 800; font-stretch: 75%;
+    font-size: clamp(3.25rem, 11.5vw, 12rem);
+    line-height: 0.88; letter-spacing: -0.025em;
+  }
+  .t-h2 {
+    font-weight: 780; font-stretch: 78%;
+    font-size: clamp(2.75rem, 8vw, 7.5rem);
+    line-height: 0.9; letter-spacing: -0.02em;
+  }
+  .t-h3 {
+    font-weight: 700; font-stretch: 85%;
+    font-size: clamp(1.75rem, 3.4vw, 3.25rem);
+    line-height: 1; letter-spacing: -0.015em;
+  }
+  .t-statement {
+    font-weight: 600; font-stretch: 90%;
+    font-size: clamp(1.9rem, 4.2vw, 4rem);
+    line-height: 1.04; letter-spacing: -0.02em;
+  }
+  .t-prose {
+    font-family: var(--font-serif);
+    font-size: clamp(1.15rem, 1.35vw, 1.35rem);
+    line-height: 1.65; max-width: 60ch;
+  }
+
+  .link-u {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-u:hover, .link-u:focus-visible { background-size: 100% 1px; }
+}
+
+/* Without JS, never leave content hidden by an entrance animation. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
