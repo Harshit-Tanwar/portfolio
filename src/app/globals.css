@@ -55,9 +55,6 @@
   --font-serif: "Newsreader Variable", ui-serif, Georgia, serif;
 }
 
-/* ------------------------------------------------------------------
-   Base
-------------------------------------------------------------------- */
 html { scroll-behavior: auto; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -71,18 +68,69 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 html[data-intro="on"] body { overflow: hidden; }
 
-::selection { background: var(--pop); color: var(--ink); }
-:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 4px; }
+/* Premium selection */
+::selection {
+  background: var(--pop);
+  color: var(--ink);
+  text-shadow: none;
+}
 
-/* Preloader is hidden unless the head script decided this is a first visit. */
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Custom scrollbar — thin, accent-colored */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 9999px;
+}
+* { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+
+/* Grain overlay — adds premium analog texture */
+/* body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  animation: grain 0.5s steps(1) infinite;
+} */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* @keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  20% { transform: translate(3%, 2%); }
+  30% { transform: translate(-1%, 4%); }
+  40% { transform: translate(4%, -1%); }
+  50% { transform: translate(-3%, 1%); }
+  60% { transform: translate(1%, -4%); }
+  70% { transform: translate(-4%, 3%); }
+  80% { transform: translate(2%, -2%); }
+  90% { transform: translate(-2%, 4%); }
+} */
+
 .preloader { display: none; }
 html[data-intro="on"] .preloader { display: flex; }
 
-/* Desktop pinned stage vs. simple list. Deterministic, no JS needed. */
 .wk-desktop { display: none; }
 .wk-list { display: block; }
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
@@ -90,51 +138,59 @@ html[data-intro="on"] .preloader { display: flex; }
   .wk-list { display: none; }
 }
 
-/* ------------------------------------------------------------------
-   Components
-------------------------------------------------------------------- */
 @layer components {
   .container-x { width: min(100% - 2.5rem, 96rem); margin-inline: auto; }
 
-  /* Type scale: condensed, heavy display; the type is the poster. */
   .t-display {
     font-weight: 800; font-stretch: 75%;
     font-size: clamp(3.25rem, 11.5vw, 12rem);
-    line-height: 0.88; letter-spacing: -0.025em;
+    line-height: 0.88; letter-spacing: -0.03em;
   }
   .t-h2 {
     font-weight: 780; font-stretch: 78%;
     font-size: clamp(2.75rem, 8vw, 7.5rem);
-    line-height: 0.9; letter-spacing: -0.02em;
+    line-height: 0.9; letter-spacing: -0.025em;
   }
   .t-h3 {
     font-weight: 700; font-stretch: 85%;
     font-size: clamp(1.75rem, 3.4vw, 3.25rem);
-    line-height: 1; letter-spacing: -0.015em;
+    line-height: 1; letter-spacing: -0.018em;
   }
   .t-statement {
     font-weight: 600; font-stretch: 90%;
     font-size: clamp(1.9rem, 4.2vw, 4rem);
-    line-height: 1.04; letter-spacing: -0.02em;
+    line-height: 1.08; letter-spacing: -0.022em;
   }
   .t-prose {
     font-family: var(--font-serif);
-    font-size: clamp(1.15rem, 1.35vw, 1.35rem);
-    line-height: 1.65; max-width: 60ch;
+    font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+    line-height: 1.7; max-width: 60ch;
+  }
+  .t-label {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .link-u {
     background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
     transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .link-u:hover, .link-u:focus-visible { background-size: 100% 1px; }
+  .link-u:hover, .link-u:focus-visible { background-size: 30% 1px; }
+
+  .clip-reveal {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .clip-reveal.in-view { clip-path: inset(0 0 0% 0); }
 }
 
-/* Without JS, never leave content hidden by an entrance animation. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  body::after { display: none; }
 }

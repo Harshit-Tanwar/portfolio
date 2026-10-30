@@ -2,7 +2,7 @@ import SplitText from '@/components/ui/SplitText';
 
 export default function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="py-28 md:py-44">
+    <section id="about" aria-labelledby="about-title" className="py-28">
       <div className="container-x grid gap-12 md:grid-cols-[1fr_2.2fr] md:gap-16">
         <h2 id="about-title" className="text-xl font-medium">About</h2>
 

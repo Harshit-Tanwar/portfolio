@@ -1,15 +1,15 @@
-import '@fontsource-variable/bricolage-grotesque/wdth.css';
-import '@fontsource-variable/newsreader/wght.css';
-import './globals.css';
+import "@fontsource-variable/bricolage-grotesque/wdth.css";
+import "@fontsource-variable/newsreader/wght.css";
+import "./globals.css";
 
-import SmoothScroll from '@/components/providers/SmoothScroll';
-import TransitionProvider from '@/components/providers/TransitionProvider';
-import Preloader from '@/components/layout/Preloader';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Cursor from '@/components/layout/Cursor';
-import JsonLd from '@/components/seo/JsonLd';
-import { site } from '@/data/site';
+import SmoothScroll from "@/components/providers/SmoothScroll";
+import TransitionProvider from "@/components/providers/TransitionProvider";
+import Preloader from "@/components/layout/Preloader";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import Cursor from "@/components/layout/Cursor";
+import JsonLd from "@/components/seo/JsonLd";
+import { site } from "@/data/site";
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -18,22 +18,44 @@ export const metadata = {
   applicationName: `${site.name} Portfolio`,
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
-  keywords: ['frontend developer', 'React developer', 'Next.js developer', 'creative developer', 'GSAP', 'Framer Motion', 'portfolio', site.name, site.nickname],
-  alternates: { canonical: '/' },
+  keywords: [
+    "frontend developer",
+    "React developer",
+    "Next.js developer",
+    "creative developer",
+    "GSAP",
+    "Framer Motion",
+    "portfolio",
+    site.name,
+    site.nickname,
+  ],
+  alternates: { canonical: "/" },
   openGraph: {
-    type: 'website', url: site.url, siteName: `${site.name} Portfolio`,
-    title: site.title, description: site.description, locale: 'en_IN',
+    type: "website",
+    url: site.url,
+    siteName: `${site.name} Portfolio`,
+    title: site.title,
+    description: site.description,
+    locale: "en_IN",
   },
-  twitter: { card: 'summary_large_image', title: site.title, description: site.description },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#EEEDF8' },
-    { media: '(prefers-color-scheme: dark)', color: '#0E0F2E' },
+    { media: "(prefers-color-scheme: light)", color: "#EEEDF8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0E0F2E" },
   ],
 };
 
@@ -48,16 +70,25 @@ if(!sessionStorage.getItem('intro-seen')&&!matchMedia('(prefers-reduced-motion: 
 const noscriptCss = `.split-word{transform:none!important}.preloader{display:none!important}body{overflow:auto!important}`;
 
 const person = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
+  "@context": "https://schema.org",
+  "@type": "Person",
   name: site.name,
   alternateName: site.nickname,
   jobTitle: site.role,
   url: site.url,
   email: `mailto:${site.email}`,
-  address: { '@type': 'PostalAddress', addressCountry: 'IN' },
+  address: { "@type": "PostalAddress", addressCountry: "IN" },
   sameAs: site.socials.map((s) => s.href),
-  knowsAbout: ['React', 'Next.js', 'TypeScript', 'GSAP', 'Framer Motion', 'Tailwind CSS', 'Node.js', 'MongoDB'],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "GSAP",
+    "Framer Motion",
+    "Tailwind CSS",
+    "Node.js",
+    "MongoDB",
+  ],
 };
 
 export default function RootLayout({ children }) {
@@ -65,9 +96,11 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: initScript }} />
-        <noscript><style>{noscriptCss}</style></noscript>
+        <noscript>
+          <style>{noscriptCss}</style>
+        </noscript>
       </head>
-      <body>
+      <body cz-shortcut-listen="true">
         <SmoothScroll>
           <TransitionProvider>
             <a
