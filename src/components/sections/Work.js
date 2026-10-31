@@ -10,16 +10,6 @@ import CaseStudyIndex from '@/components/project/CaseStudyIndex';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-/**
- * The signature moment.
- *
- * Desktop: the page floods ultramarine from the stage's top edge, the stage
- * pins, and one deck of cards fans out, spreads into a row, then flips to
- * reveal its details. All scrubbed by scroll, transforms only.
- *
- * Mobile / tablet / reduced motion: a plain list on the same blue field.
- * (Chosen in CSS, see .wk-desktop / .wk-list in globals.css.)
- */
 export default function Work({ projects }) {
   const root = useRef(null);
 
@@ -36,7 +26,6 @@ export default function Work({ projects }) {
         gsap.set(cards, { xPercent: -50, yPercent: -50, transformPerspective: 1600, zIndex: (i) => i });
         gsap.set(cards, { x: 0, y: (i) => i * -6, rotation: (i) => (i - mid) * 2, scale: 0.94 });
 
-        // 1. The blue floods in as the stage arrives.
         gsap.fromTo(
           '.wk-flood',
           { clipPath: 'circle(0px at 80% 0px)' },
@@ -52,7 +41,6 @@ export default function Work({ projects }) {
           { opacity: 1, ease: 'none', scrollTrigger: { trigger: stage, start: 'top 55%', end: 'top 5%', scrub: true } }
         );
 
-        // 2. Pinned sequence: fan out → spread → flip.
         const tl = gsap.timeline({
           defaults: { ease: 'power3.inOut' },
           scrollTrigger: {
@@ -105,8 +93,8 @@ export default function Work({ projects }) {
         <div className="container-x">
           <h2 className="t-h2">Selected work</h2>
           <ul className="mt-14 grid gap-16 md:grid-cols-2">
-            {projects.map((p) => (
-              <ListCard key={p.slug} project={p} />
+            {projects.map((p, i) => (
+              <ListCard key={p.slug} project={p} index={i} />
             ))}
           </ul>
         </div>
