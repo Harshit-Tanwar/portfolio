@@ -1,38 +1,35 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------
-   Design tokens — "Ultramarine"
-   Mist #EEEDF8 · Indigo ink #14143A · Ultramarine #3B3BFF · Marigold #FFB800
-   Light is the default; [data-theme="dark"] swaps the surfaces.
-------------------------------------------------------------------- */
 :root,
 [data-theme="light"] {
   --bg: #eeedf8;
   --surface: #e2e0f4;
   --line: #cbc8ea;
   --fg: #14143a;
-  --muted: #55557f;
+  --muted: #534b52;
   --accent: #3b3bff;
   --on-accent: #f6f5ff;
   --accent-text: #2b2be6;
   --pop: #ffb800;
-  --stage: #3b3bff;
+  /* --stage: #3b3bff; */
+  --stage: #8a35cf7a;
+
   --ink: #14143a;
   --mist: #eeedf8;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #0e0f2e;
-  --surface: #17184a;
+  --bg: #08081a;
+  --surface: #13143d;
   --line: #2d2f72;
   --fg: #eeedf8;
-  --muted: #a3a2d6;
+  --muted: #d8c2ff;
   --accent: #ffb800;
   --on-accent: #14143a;
   --accent-text: #ffb800;
   --pop: #ffb800;
-  --stage: #3b3bff;
+  --stage: #8a35cf7a;
   --ink: #14143a;
   --mist: #eeedf8;
   color-scheme: dark;
@@ -73,7 +70,6 @@ body {
 }
 html[data-intro="on"] body { overflow: hidden; }
 
-/* Premium selection */
 ::selection {
   background: var(--pop);
   color: var(--ink);
@@ -86,7 +82,6 @@ html[data-intro="on"] body { overflow: hidden; }
   border-radius: 4px;
 }
 
-/* Custom scrollbar — thin, accent-colored */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
@@ -95,38 +90,13 @@ html[data-intro="on"] body { overflow: hidden; }
 }
 * { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
 
-/* Grain overlay — adds premium analog texture */
-/* body::after {
-  content: '';
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 999;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  background-size: 128px 128px;
-  animation: grain 0.5s steps(1) infinite;
-} */
+
 
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* @keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-2%, -3%); }
-  20% { transform: translate(3%, 2%); }
-  30% { transform: translate(-1%, 4%); }
-  40% { transform: translate(4%, -1%); }
-  50% { transform: translate(-3%, 1%); }
-  60% { transform: translate(1%, -4%); }
-  70% { transform: translate(-4%, 3%); }
-  80% { transform: translate(2%, -2%); }
-  90% { transform: translate(-2%, 4%); }
-} */
 
 .preloader { display: none; }
 html[data-intro="on"] .preloader { display: flex; }
@@ -164,12 +134,27 @@ html[data-intro="on"] .preloader { display: flex; }
   .t-prose {
     font-family: var(--font-serif);
     font-size: clamp(1.1rem, 1.3vw, 1.3rem);
-    line-height: 1.7; max-width: 60ch;
+    font-weight: 400;
+    line-height: 1.7;
+    max-width: 60ch;
+    /* Cormorant optical sizing — unlocks refined hairline strokes */
+    font-optical-sizing: auto;
+  }
+  /* Cormorant italic pull-quote — use for statements */
+  .t-serif-display {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
   }
   .t-label {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
   }
 
