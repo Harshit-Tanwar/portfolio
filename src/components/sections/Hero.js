@@ -7,7 +7,6 @@ import { useGSAP } from '@gsap/react';
 import { motion } from 'framer-motion';
 import SplitText from '@/components/ui/SplitText';
 import Button from '@/components/ui/Button';
-import LocalTime from '@/components/ui/LocalTime';
 import { usePageTransition } from '@/components/providers/TransitionProvider';
 import { ease } from '@/lib/motion';
 import { site } from '@/data/site';
@@ -36,7 +35,6 @@ export default function Hero() {
     () => {
       const mm = gsap.matchMedia();
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Parallax: headline drifts slower than scroll
         gsap.to('.hero-headline', {
           yPercent: -12,
           ease: 'none',
@@ -47,18 +45,6 @@ export default function Hero() {
             scrub: true,
           },
         });
-        // Meta row floats up slightly faster
-        // gsap.to('.hero-meta', {
-        //   yPercent: -6,
-        //   ease: 'none',
-        //   scrollTrigger: {
-        //     trigger: root.current,
-        //     start: 'top top',
-        //     end: 'bottom top',
-        //     scrub: true,
-        //   },
-        // });
-        // Orbs drift opposite directions
         gsap.to('.hero-orb-1', {
           y: -80,
           x: 40,
@@ -86,16 +72,6 @@ export default function Hero() {
     { scope: root }
   );
 
-  const fade = {
-    hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
-    show: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: { duration: 1, ease: ease.out, delay: 0.85 },
-    },
-  };
-
   const fadeBottom = {
     hidden: { opacity: 0, y: 32, filter: 'blur(4px)' },
     show: {
@@ -109,27 +85,19 @@ export default function Hero() {
   return (
     <section ref={root} aria-label="Introduction" className="relative flex min-h-svh flex-col overflow-hidden">
 
-      <Orb className="hero-orb-1 -top-32 -right-32 w-[600px] h-[600px] bg-accent" />
-      <Orb className="hero-orb-2 bottom-20 -left-40 w-[500px] h-[500px] bg-pop" />
+      <Orb className="hero-orb-1 -top-32 -right-32 w-150 h-150 bg-accent hidden sm:block" />
+      <Orb className="hero-orb-2 bottom-20 -left-40 w-125 h-125 bg-pop hidden sm:block" />
 
       <div className="relative z-10 flex flex-1 flex-col justify-between pb-0 pt-28 md:pt-36">
 
-        {/* <motion.div
-          variants={fade}
-          initial="hidden"
-          animate={introDone ? 'show' : 'hidden'}
-          className="hero-meta container-x flex items-start justify-between gap-6 text-muted"
-        >
-          <p className="text-sm font-medium">
-            <span className="mr-2 inline-block size-1.5 rounded-full bg-pop align-middle" />
-            {site.name}
-          </p>
-          <LocalTime className="hidden sm:block text-sm" />
-        </motion.div> */}
-
         {/* Headline */}
         <div className="hero-headline container-x my-14">
-          <SplitText as="h1" trigger="intro" className="t-display" stagger={0.055}>
+          <SplitText
+            as="h1"
+            trigger="intro"
+            className="t-display [&>span:last-child>span:last-child>.split-word]:font-serif [&>span:last-child>span:last-child>.split-word]:font-semibold [&>span:last-child>span:last-child>.split-word]:italic [&>span:last-child>span:last-child>.split-word]:text-accent-text"
+            stagger={0.055}
+          >
             {'I build interfaces\nthat feel considered.'}
           </SplitText>
         </div>
