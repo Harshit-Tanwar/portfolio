@@ -59,14 +59,13 @@ export const viewport = {
   ],
 };
 
-/** Runs before first paint: picks the theme and decides whether to show the intro. */
 const initScript = `(function(){var d=document.documentElement,t='light',i='off';try{
 var s=localStorage.getItem('theme');
-t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+if(s==='light'||s==='dark')t=s;
+else if(matchMedia('(prefers-color-scheme: dark)').matches)t='dark';
 if(!sessionStorage.getItem('intro-seen')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)i='on';
 }catch(e){}d.dataset.theme=t;d.dataset.intro=i;})();`;
 
-/** If JavaScript is off, make sure nothing stays hidden by an entrance animation. */
 const noscriptCss = `.split-word{transform:none!important}.preloader{display:none!important}body{overflow:auto!important}`;
 
 const person = {
