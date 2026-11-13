@@ -18,13 +18,6 @@ const word = {
   }),
 };
 
-/**
- * Masked word-by-word reveal with blur + slight rotation.
- *  - trigger="view"  → plays when scrolled into view
- *  - trigger="intro" → plays once the preloader has finished (use for the hero)
- * Use "\n" in the text for forced line breaks. The full text is exposed to
- * assistive tech through aria-label.
- */
 export default function SplitText({
   children: text,
   as = 'span',

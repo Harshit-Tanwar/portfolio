@@ -1,8 +1,4 @@
-/**
- * Flat geometric artwork per project, drawn in SVG. No image requests,
- * crisp at any size. Swap for real screenshots via next/image when ready.
- * The wrapper owns the background so the art can letterbox in any ratio.
- */
+
 function Strip({ fg, accent }) {
   // A filmstrip of frames, one of them lit: the scrubbed sequence.
   return Array.from({ length: 28 }).map((_, i) => {

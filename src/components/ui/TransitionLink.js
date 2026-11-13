@@ -5,10 +5,6 @@ import { usePageTransition } from '@/components/providers/TransitionProvider';
 
 const EXTERNAL = /^(https?:|mailto:|tel:)/;
 
-/**
- * Drop-in replacement for next/link that plays the page transition.
- * Modified clicks (new tab, etc.) and external URLs behave normally.
- */
 export default function TransitionLink({ href, label = '', onClick, children, ...props }) {
   const { navigate } = usePageTransition();
 

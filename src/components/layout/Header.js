@@ -107,7 +107,7 @@ export default function Header() {
               aria-label={`${site.name}, home`}
               className="pointer-events-auto group flex h-14 items-center gap-3"
             >
-              <span className="t-h3 text-[1.7rem]!">{site.nickname}</span>
+              <span className="t-h3 text-[1.7rem]!">{site.name}</span>
             </TransitionLink>
           </motion.div>
 
@@ -163,6 +163,23 @@ export default function Header() {
 
           <motion.div animate={{ y: sideY }} transition={{ ...sideTransition, delay: 0.05 }}>
             <div className="pointer-events-auto flex h-14 items-center gap-3">
+
+              <div className="hidden md:block">
+                  <a
+                    href={site.resume}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex h-10 items-center gap-2 px-4 text-sm font-medium transition-opacity hover:opacity-80`}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="12" y1="18" x2="12" y2="12"/>
+                      <line x1="9" y1="15" x2="15" y2="15"/>
+                    </svg>
+                    Resume
+                  </a>
+              </div>
 
               <div className="hidden md:block">
                 <Magnetic strength={0.12}>
@@ -242,6 +259,20 @@ export default function Header() {
                 <PingDot /> Open to work
               </span>
               <a href={`mailto:${site.email}`} className="link-u w-fit text-xl">{site.email}</a>
+              <a
+                href={site.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-mist/30 px-5 py-2.5 text-sm font-medium text-mist transition-colors hover:border-mist/60 hover:text-pop"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="12" y1="18" x2="12" y2="12"/>
+                  <line x1="9" y1="15" x2="15" y2="15"/>
+                </svg>
+                View Resume
+              </a>
               <ul className="flex gap-6 text-mist/70">
                 {site.socials.map((s) => (
                   <li key={s.label}>
