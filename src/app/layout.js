@@ -58,10 +58,10 @@ export const viewport = {
   ],
 };
 
+/** Runs before first paint: picks the theme and decides whether to show the intro. */
 const initScript = `(function(){var d=document.documentElement,t='light',i='off';try{
 var s=localStorage.getItem('theme');
-if(s==='light'||s==='dark')t=s;
-else if(matchMedia('(prefers-color-scheme: dark)').matches)t='dark';
+t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 if(!sessionStorage.getItem('intro-seen')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)i='on';
 }catch(e){}d.dataset.theme=t;d.dataset.intro=i;})();`;
 
@@ -98,7 +98,7 @@ export default function RootLayout({ children }) {
           <style>{noscriptCss}</style>
         </noscript>
       </head>
-      <body cz-shortcut-listen="true">
+      <body>
         <SmoothScroll>
           <TransitionProvider>
             <a

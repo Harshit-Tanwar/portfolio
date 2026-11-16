@@ -105,7 +105,9 @@ export default function Header() {
               label="Home"
               onClick={() => setOpen(false)}
               aria-label={`${site.name}, home`}
-              className="pointer-events-auto group flex h-14 items-center gap-3"
+              className={`pointer-events-auto group flex h-14 items-center gap-3 transition-colors duration-300 ${
+                open ? 'text-mist' : 'text-fg'
+              }`}
             >
               <span className="t-h3 text-[1.7rem]!">{site.name}</span>
             </TransitionLink>
@@ -169,7 +171,7 @@ export default function Header() {
                     href={site.resume}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex h-10 items-center gap-2 px-4 text-sm font-medium transition-opacity hover:opacity-80`}
+                    className="flex h-10 items-center gap-2  text-sm font-medium transition-colors duration-300  hover:text-accent"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -193,14 +195,16 @@ export default function Header() {
                   </TransitionLink>
                 </Magnetic>
               </div>
-              <ThemeToggle className="size-10! border-muted/20! hover:bg-mist/10!" />
+              <ThemeToggle className="size-10! border-muted/20! hover:bg-mist/10!"/>
 
               <button
                 type="button"
                 onClick={() => setOpen((v) => !v)}
                 aria-expanded={open}
                 aria-controls="menu"
-                className="flex h-10 items-center gap-3 pl-2 pr-1 font-medium md:hidden"
+                className={`flex h-10 items-center gap-3 pl-2 pr-1 font-medium transition-colors duration-300 md:hidden ${
+                  open ? 'text-mist' : 'text-fg'
+                }`}
               >
                 {open ? 'Close' : 'Menu'}
                 <span aria-hidden="true" className="relative block h-3 w-5">

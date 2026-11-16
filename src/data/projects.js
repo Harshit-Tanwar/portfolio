@@ -3,11 +3,11 @@ export const projects = [
     slug: "mindquest",
     title: "MindQuest",
     kind: "Interactive quiz platform",
-    year: "2024",
+    year: "2025",
     role: "Design and full-stack",
     summary:
       "A timed quiz platform with per-question countdowns, streak tracking, and a three-way power-up system built with race-condition-safe ref guards.",
-    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    stack: ["Next.js", "React", "Tailwind CSS"],
     links: [
       { label: "Live Demo", href: "https://harshittanwar.netlify.app/#" },
       { label: "Source Code", href: "https://harshittanwar.netlify.app/#" },
@@ -42,7 +42,7 @@ export const projects = [
     role: "Frontend Development",
     summary:
       "A fully responsive creative agency website featuring immersive animations, interactive elements, and fluid transitions designed to create an engaging browsing experience.",
-    stack: ["React", "JavaScript", "GSAP", "Framer Motion", "CSS"],
+    stack: ["React", "JavaScript", "GSAP", "Framer Motion", "Lenis", "CSS"],
     links: [{ label: "Live Website", href: "https://designdrama.co/" }],
     art: {
       shape: "strip",
@@ -79,7 +79,7 @@ export const projects = [
     slug: "employee-management-system",
     title: "Employee Management System",
     kind: "Role-based enterprise dashboard",
-    year: "2024",
+    year: "2025",
     role: "Design and full-stack",
     summary:
       "A role-based employee dashboard with real-time task tracking, category tagging, and localStorage-backed persistence — no backend required.",
@@ -118,12 +118,12 @@ export const projects = [
   {
     slug: "nrk-rasoma",
     title: "NRK Group",
-    kind: "Scroll-driven web page",
+    kind: "Premium Real Estate Webste",
     year: "2026",
     role: "Design and frontend",
     summary:
-      "A single page that plays as you scroll: 1,422 frames drawn on a canvas and served from a CDN.",
-    stack: ["React", "Canvas", "Cloudinary"],
+      "A Real Esatate Website with premium animations, scroll driven rendered cdn images",
+    stack: ["React", "Motion", "Cloudinary", "Animaiton"],
     links: [],
     art: { shape: "strip", bg: "#FFB800", fg: "#14143A", accent: "#3B3BFF" },
     overview:
