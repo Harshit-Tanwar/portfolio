@@ -4,10 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MoonIcon, SunIcon } from './Icons';
 
-/**
- * Light/dark switch with an animated icon crossfade.
- * The initial value is set by the inline head script (no flash).
- */
+
 export default function ThemeToggle({ className = '' }) {
   const [theme, setTheme] = useState(null);
 
@@ -16,7 +13,7 @@ export default function ThemeToggle({ className = '' }) {
   const toggle = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
-    try { localStorage.setItem('theme', next); } catch {}
+    try { localStorage.setItem('theme', next); } catch (_) {}
     setTheme(next);
   };
 
@@ -32,10 +29,10 @@ export default function ThemeToggle({ className = '' }) {
         {theme === 'dark' ? (
           <motion.span
             key="sun"
-            initial={{ y: 12, opacity: 0, rotate: -90 }}
-            animate={{ y: 0, opacity: 1, rotate: 0 }}
-            exit={{ y: -12, opacity: 0, rotate: 90 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="absolute"
           >
             <SunIcon />
@@ -43,10 +40,10 @@ export default function ThemeToggle({ className = '' }) {
         ) : (
           <motion.span
             key="moon"
-            initial={{ y: 12, opacity: 0, rotate: 90 }}
-            animate={{ y: 0, opacity: 1, rotate: 0 }}
-            exit={{ y: -12, opacity: 0, rotate: -90 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="absolute"
           >
             <MoonIcon />

@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function Work({ projects }) {
   const root = useRef(null);
+  const visibleProjects = projects.slice(0, 3);
 
   useGSAP(
     () => {
@@ -50,11 +51,11 @@ export default function Work({ projects }) {
         });
 
         tl.to(cards, {
-          rotation: (i) => (i - mid) * 11, x: (i) => (i - mid) * 70, y: (i) => Math.abs(i - mid) * 36,
+          rotation: (i) => (i - mid) * 11, x: (i) => (i - mid) * 100, y: (i) => Math.abs(i - mid) * 36,
           scale: 1, duration: 1,
         }, 0)
           .to('.wk-hint', { opacity: 0, duration: 0.4 }, 0.2)
-          .to(cards, { rotation: 0, x: (i) => (i - mid) * cardWidth() * 1.1, y: 0, duration: 1 }, 1.3)
+          .to(cards, { rotation: 0, x: (i) => (i - mid) * cardWidth() * 1.25, y: 0, duration: 1 }, 1.3)
           .to(cards, { rotationY: 180, duration: 1, stagger: 0.14 }, 2.7)
           .fromTo('.wk-progress', { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: 4 }, 0);
       });
@@ -66,7 +67,7 @@ export default function Work({ projects }) {
     <section id="work" ref={root} aria-label="Selected work">
       {/* Desktop: pinned stage + case-study index */}
       <div className="wk-desktop">
-        <div className="wk-stage relative h-svh overflow-hidden text-mist" style={{ '--cw': 'min(22vw, 340px, 36svh)' }}>
+        <div className="wk-stage relative h-svh overflow-hidden text-mist" style={{ '--cw': 'min(28vw, 380px, 42svh)' }}>
           <div className="wk-flood absolute inset-0 bg-stage" aria-hidden="true" />
           <div className="wk-content relative z-10 flex h-full flex-col">
             <div className="container-x flex items-end justify-between pt-28">
@@ -74,7 +75,7 @@ export default function Work({ projects }) {
               <p className="wk-hint text-mist/80">Keep scrolling and the cards spread out</p>
             </div>
             <div className="relative flex-1">
-              {projects.map((p) => (
+              {visibleProjects.map((p) => (
                 <StageCard key={p.slug} project={p} />
               ))}
             </div>
@@ -92,7 +93,7 @@ export default function Work({ projects }) {
       <div className="wk-list bg-stage py-24 text-mist">
         <div className="container-x">
           <h2 className="t-h2">Selected work</h2>
-          <ul className="mt-14 grid gap-16 md:grid-cols-2">
+          <ul className="mt-14 grid sm:grid-cols-2 xl:grid-cols-3">
             {projects.map((p, i) => (
               <ListCard key={p.slug} project={p} index={i} />
             ))}

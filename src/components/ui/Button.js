@@ -11,10 +11,6 @@ const variants = {
   'outline-light':'border border-mist/40 text-mist hover:border-mist',
 };
 
-/**
- * Pill button with a sliding text swap and a background sweep on hover.
- * The sweep is a ::before element that scales from 0→1.
- */
 export default function Button({ href, label, onClick, variant = 'primary', className, children, ...rest }) {
   const classes = cn(
     'group relative inline-flex h-14 items-center overflow-hidden rounded-full px-8 text-sm font-semibold tracking-wide transition-shadow duration-400 hover:shadow-lg',
@@ -60,7 +56,7 @@ export default function Button({ href, label, onClick, variant = 'primary', clas
   );
 
   return (
-    <Magnetic strength={0.2}>
+    <Magnetic strength={0.12}>
       {href ? (
         <TransitionLink href={href} label={label} className={classes} data-cursor="" {...rest}>
           {content}

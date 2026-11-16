@@ -1,10 +1,9 @@
-/** TODO: add dates and more detail for each entry. */
 export const experience = [
   {
-    meta: 'Ongoing',
-    title: 'Independent work',
-    body: 'Building scroll-driven interfaces and studying how agency sites such as Lusion, Locomotive and Resn make scrolling feel like the main interaction.',
-    tags: ['GSAP', 'Framer Motion', 'Canvas'],
+    meta: 'June - Present',
+    title: 'Design Drama',
+    body: 'Worked across multiple client projects and contributed to building the company website, shaping interfaces and delivering polished digital experiences.',
+    tags: ['UI Design', 'Web Development', 'Team Projects', 'Company Website'],
   },
   {
     meta: 'Internship',
