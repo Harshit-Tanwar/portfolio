@@ -8,11 +8,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const SmoothScrollContext = createContext({ scrollTo: () => {}, stop: () => {}, start: () => {} });
 export const useSmoothScroll = () => useContext(SmoothScrollContext);
 
-/**
- * Lenis smooth scrolling, driven by GSAP's ticker so Lenis, ScrollTrigger
- * and Framer Motion's scroll hooks all read one consistent scroll position.
- * Disabled for visitors who prefer reduced motion.
- */
 export default function SmoothScroll({ children }) {
   const lenisRef = useRef(null);
 

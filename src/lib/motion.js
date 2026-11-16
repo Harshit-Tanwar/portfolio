@@ -1,7 +1,4 @@
-/**
- * Motion tokens shared by Framer Motion and GSAP so every animation
- * on the site shares the same rhythm.
- */
+
 export const ease = {
   out: [0.16, 1, 0.3, 1],       // expo-out: fast start, long settle
   inOut: [0.76, 0, 0.24, 1],    // expo-in-out: used for big panels
@@ -17,16 +14,13 @@ export const gsapEase = {
   spring: 'elastic.out(1, 0.75)',
 };
 
-/** Framer Motion viewport preset for scroll-triggered reveals */
 export const viewport = { once: true, margin: '0px 0px -10% 0px' };
 
-/** Standard stagger container */
 export const staggerContainer = (staggerChildren = 0.07, delayChildren = 0) => ({
   hidden: {},
   show: { transition: { staggerChildren, delayChildren } },
 });
 
-/** Standard fade-up child variant */
 export const fadeUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 32, filter: 'blur(4px)' },
   show: {

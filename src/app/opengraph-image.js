@@ -9,7 +9,7 @@ export default function OpenGraphImage() {
   return new ImageResponse(
     (
       <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#3B3BFF', color: '#EEEDF8', padding: 72 }}>
-        <div style={{ display: 'flex', fontSize: 34, opacity: 0.8 }}>{site.name}, also known as {site.nickname}</div>
+        <div style={{ display: 'flex', fontSize: 34, opacity: 0.8 }}>{site.name}</div>
         <div style={{ display: 'flex', fontSize: 132, fontWeight: 800, lineHeight: 0.95, letterSpacing: -4 }}>
           I build interfaces that feel considered.
         </div>

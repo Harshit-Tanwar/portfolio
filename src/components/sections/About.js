@@ -8,7 +8,7 @@ export default function About() {
 
         <div>
           <SplitText as="p" className="t-statement">
-            {'I’m Harshit, though most people call me Flames. I build the frontend of products and care most about the parts people feel: type, spacing and motion.'}
+            {'I’m Harshit Tanwar. I build the frontend of products and care most about the parts people feel: type, spacing and motion.'}
           </SplitText>
 
           <div className="mt-14 grid gap-8 md:grid-cols-2 md:gap-14">

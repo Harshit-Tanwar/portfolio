@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
 
 function Block({ title, children }) {
   return (
-    <section className="grid gap-6 border-t border-line py-14 md:grid-cols-[1fr_2.2fr] md:gap-16 md:py-20">
+    <section className="grid gap-6 border-t border-line py-10 md:grid-cols-[1fr_2.2fr] md:gap-10 md:py-14">
       <h2 className="t-h3 md:sticky md:top-28 md:self-start">{title}</h2>
       <div>{children}</div>
     </section>
@@ -62,12 +62,12 @@ export default async function ProjectPage({ params }) {
         }}
       />
 
-      <header className="container-x pt-36 md:pt-48">
+      <header className="container-x pt-28 md:pt-36">
         <p className="text-muted">{project.kind}</p>
         <SplitText as="h1" trigger="intro" delay={0.55} className="t-display mt-4">
           {project.title}
         </SplitText>
-        <dl className="mt-14 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-8 md:grid-cols-3">
+        <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-6 md:grid-cols-3">
           {meta.map(([k, v]) => (
             <div key={k}>
               <dt className="text-muted">{k}</dt>
@@ -76,14 +76,14 @@ export default async function ProjectPage({ params }) {
           ))}
         </dl>
       </header>
-
-      <div className="container-x mt-16">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] md:aspect-[21/10]">
+        <div className="container-x mt-10">
+        <div className="relative mx-auto aspect-[16/9] max-w-5xl overflow-hidden rounded-[1.5rem] md:aspect-[16/8]">
           <ProjectArt project={project} />
         </div>
       </div>
 
-      <div className="container-x mt-20 md:mt-28">
+      <div className="container-x mt-12 md:mt-16">
+
         <Block title="Overview"><p className="t-prose">{project.overview}</p></Block>
         <Block title="The problem"><p className="t-prose">{project.challenge}</p></Block>
         <Block title="How I approached it">
@@ -107,11 +107,11 @@ export default async function ProjectPage({ params }) {
           href={`/work/${next.slug}`}
           label={next.title}
           data-cursor="Next"
-          className="group block bg-stage py-24 text-mist transition-colors duration-500 hover:bg-ink md:py-36"
+          className="group block bg-stage py-10 text-mist transition-colors duration-500 hover:bg-ink md:py-16"
         >
           <div className="container-x">
-            <p className="text-mist/70">Next case study</p>
-            <p className="t-display mt-4">{next.title}</p>
+            <p className="text-mist/70 text-xs uppercase tracking-[0.2em]">Next case study</p>
+            <p className="t-h2 mt-3 md:t-h3">{next.title}</p>
           </div>
         </TransitionLink>
       </section>
