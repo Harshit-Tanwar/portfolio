@@ -9,8 +9,8 @@ export const projects = [
       "A timed quiz platform with per-question countdowns, streak tracking, and a three-way power-up system built with race-condition-safe ref guards.",
     stack: ["Next.js", "React", "Tailwind CSS"],
     links: [
-      { label: "Live Demo", href: "https://harshittanwar.netlify.app/#" },
-      { label: "Source Code", href: "https://harshittanwar.netlify.app/#" },
+      { label: "Live Demo", href: "https://mind-quest-neon.vercel.app/" },
+      { label: "Source Code", href: "" },
     ],
     art: { shape: "strip", bg: "#3B3BFF", fg: "#EEEDF8", accent: "#FFB800" },
     overview:
@@ -33,6 +33,38 @@ export const projects = [
     ],
     outcome:
       "A polished quiz experience where the timer, streaks, and power-ups all feel reliable under fast interaction. The Swiper-powered carousels and gem system add replay value without making the UI feel cluttered.",
+  },
+   {
+    slug: "nrk-group",
+    title: "NRK Group",
+    kind: "Premium Real Estate Website",
+    year: "2026",
+    role: "Design and frontend",
+    summary:
+      "A Real Esatate Website with premium animations, scroll driven rendered cdn images",
+    stack: ["React", "Motion", "Cloudinary", "Animaiton"],
+    links: [{ label: "Live Website", href: "https://nrkprojects.com/" }],
+    art: { shape: "strip", bg: "#FFB800", fg: "#14143A", accent: "#3B3BFF" },
+    overview:
+      "NRK Rasoma is a page where the scrollbar is the playback control. Scroll progress maps to a frame index, and a canvas draws the matching frame out of a 1,422-image sequence.",
+    challenge:
+      "More than a thousand frames is a heavy payload. The sequence has to feel immediate and stay in sync with the scroll position, without the images weighing down the app itself.",
+    approach: [
+      {
+        title: "Draw everything on one canvas",
+        text: "Instead of swapping image elements, a single canvas repaints with the frame that matches the current scroll progress. One surface means one thing to keep fast.",
+      },
+      {
+        title: "Move the frames to a CDN",
+        text: "The sequence now lives on Cloudinary rather than in the app bundle, so the frames are delivered from edge servers and the page ships lighter.",
+      },
+      {
+        title: "Tie scroll to frames, not time",
+        text: "The animation has no timeline of its own. Scrolling faster or slower simply moves through the frames at the same pace as the reader.",
+      },
+    ],
+    outcome:
+      "A product page that behaves like a film you control. Moving the frames to a CDN was the biggest single improvement to how quickly it feels ready.",
   },
   {
     slug: "design-drama",
@@ -85,8 +117,8 @@ export const projects = [
       "A role-based employee dashboard with real-time task tracking, category tagging, and localStorage-backed persistence — no backend required.",
     stack: ["React", "JavaScript", "Tailwind CSS", "HTML"],
     links: [
-      { label: "Live Demo", href: "https://harshittanwar.netlify.app/#" },
-      { label: "Source Code", href: "https://harshittanwar.netlify.app/#" },
+      { label: "Live Demo", href: "https://ems-lilac-nine.vercel.app/" },
+      { label: "Source Code", href: "" },
     ],
     art: {
       shape: "accordion",
@@ -114,38 +146,6 @@ export const projects = [
     ],
     outcome:
       "A fully self-contained management tool that works offline and loads instantly. The explicit status workflow reduced confusion about task state, and color-coded cards made priority visible at a glance.",
-  },
-  {
-    slug: "nrk-rasoma",
-    title: "NRK Group",
-    kind: "Premium Real Estate Webste",
-    year: "2026",
-    role: "Design and frontend",
-    summary:
-      "A Real Esatate Website with premium animations, scroll driven rendered cdn images",
-    stack: ["React", "Motion", "Cloudinary", "Animaiton"],
-    links: [],
-    art: { shape: "strip", bg: "#FFB800", fg: "#14143A", accent: "#3B3BFF" },
-    overview:
-      "NRK Rasoma is a page where the scrollbar is the playback control. Scroll progress maps to a frame index, and a canvas draws the matching frame out of a 1,422-image sequence.",
-    challenge:
-      "More than a thousand frames is a heavy payload. The sequence has to feel immediate and stay in sync with the scroll position, without the images weighing down the app itself.",
-    approach: [
-      {
-        title: "Draw everything on one canvas",
-        text: "Instead of swapping image elements, a single canvas repaints with the frame that matches the current scroll progress. One surface means one thing to keep fast.",
-      },
-      {
-        title: "Move the frames to a CDN",
-        text: "The sequence now lives on Cloudinary rather than in the app bundle, so the frames are delivered from edge servers and the page ships lighter.",
-      },
-      {
-        title: "Tie scroll to frames, not time",
-        text: "The animation has no timeline of its own. Scrolling faster or slower simply moves through the frames at the same pace as the reader.",
-      },
-    ],
-    outcome:
-      "A product page that behaves like a film you control. Moving the frames to a CDN was the biggest single improvement to how quickly it feels ready.",
   },
 ];
 
