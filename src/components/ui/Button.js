@@ -5,23 +5,33 @@ import Magnetic from './Magnetic';
 import { cn } from '@/lib/utils';
 
 const variants = {
-  primary:        'bg-accent text-on-accent',
-  outline:        'border border-fg/30 text-fg hover:border-fg/70',
-  light:          'bg-mist text-ink',
-  'outline-light':'border border-mist/40 text-mist hover:border-mist',
+  primary:         'bg-accent text-on-accent',
+  outline:         'border border-fg/30 text-fg hover:border-fg/70',
+  light:           'bg-mist text-ink',
+  'outline-light': 'border border-mist/40 text-mist hover:border-mist',
 };
 
-export default function Button({ href, label, onClick, variant = 'primary', className, children, ...rest }) {
+export default function Button({
+  href,
+  label,
+  onClick,
+  variant = 'primary',
+  className,
+  children,
+  ...rest
+}) {
+  const isOutline = variant.includes('outline');
+
   const classes = cn(
-    'group relative inline-flex h-14 items-center overflow-hidden rounded-full px-8 text-sm font-semibold tracking-wide transition-shadow duration-400 hover:shadow-lg',
+    'group relative inline-flex h-14 items-center overflow-hidden rounded-full px-8 text-sm font-semibold tracking-wide transition-shadow duration-300 hover:shadow-lg',
     variants[variant],
     className
   );
 
   const content = (
     <>
-      {/* Hover fill sweep — only for outline variants */}
-      {variant.includes('outline') && (
+      {/* Hover fill sweep — outline variants only */}
+      {isOutline && (
         <span
           aria-hidden="true"
           className={cn(
@@ -31,12 +41,12 @@ export default function Button({ href, label, onClick, variant = 'primary', clas
         />
       )}
 
-      {/* Sliding text */}
+      {/* Text slides: current title goes up, duplicate slides in from below */}
       <span className="relative block overflow-hidden">
         <span
           className={cn(
             'block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full',
-            variant.includes('outline') && 'group-hover:text-canvas transition-colors duration-200'
+            isOutline && 'group-hover:text-canvas transition-colors duration-200'
           )}
         >
           {children}
@@ -58,11 +68,23 @@ export default function Button({ href, label, onClick, variant = 'primary', clas
   return (
     <Magnetic strength={0.12}>
       {href ? (
-        <TransitionLink href={href} label={label} className={classes} data-cursor="" {...rest}>
+        <TransitionLink
+          href={href}
+          label={label}
+          className={classes}
+          data-cursor=""
+          {...rest}
+        >
           {content}
         </TransitionLink>
       ) : (
-        <button type="button" onClick={onClick} className={classes} data-cursor="" {...rest}>
+        <button
+          type="button"
+          onClick={onClick}
+          className={classes}
+          data-cursor=""
+          {...rest}
+        >
           {content}
         </button>
       )}

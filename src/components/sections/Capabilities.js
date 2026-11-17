@@ -37,7 +37,7 @@ function SkillRow({ group, items, index }) {
             initial={{ opacity: 0, scale: 0.88 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, ease: ease.out, delay: index * 0.08 + 0.2 + i * 0.04 }}
-            className="group/tag inline-flex items-center rounded-full border border-line px-4 py-1.5 text-sm font-medium transition-all duration-400 hover:border-accent hover:bg-accent hover:text-on-accent cursor-default"
+            className="group/tag inline-flex items-center rounded-full border border-line px-4 py-1.5 text-sm font-medium transition-all duration-300 hover:border-accent hover:bg-accent/8 hover:text-accent cursor-default"
           >
             {item}
           </motion.span>

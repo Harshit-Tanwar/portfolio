@@ -14,21 +14,14 @@ import { site } from '@/data/site';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const MARQUEE_ITEMS = [
-  'React', '—', 'Next.js', '—', 'GSAP', '—', 'Framer Motion', '—',
-  'TypeScript', '—', 'Node.js', '—', 'CSS', '—', 'Motion Design', '—',
+  'React', '·', 'Next.js', '·', 'GSAP', '·', 'Framer Motion', '·',
+  'TypeScript', '·', 'Node.js', '·', 'CSS', '·', 'Motion Design', '·',
 ];
-
-function Orb({ className }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={`absolute rounded-full blur-[120px] opacity-[0.18] pointer-events-none ${className}`}
-    />
-  );
-}
 
 export default function Hero() {
   const root = useRef(null);
+  const orb1Ref = useRef(null);
+  const orb2Ref = useRef(null);
   const { introDone } = usePageTransition();
 
   useGSAP(
@@ -36,7 +29,7 @@ export default function Hero() {
       const mm = gsap.matchMedia();
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.to('.hero-headline', {
-          yPercent: -12,
+          yPercent: -14,
           ease: 'none',
           scrollTrigger: {
             trigger: root.current,
@@ -45,35 +38,40 @@ export default function Hero() {
             scrub: true,
           },
         });
-        gsap.to('.hero-orb-1', {
-          y: -80,
-          x: 40,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-        gsap.to('.hero-orb-2', {
-          y: -50,
-          x: -30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
+
+        if (orb1Ref.current) {
+          gsap.to(orb1Ref.current, {
+            y: -100,
+            x: 50,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: root.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        }
+        if (orb2Ref.current) {
+          gsap.to(orb2Ref.current, {
+            y: -60,
+            x: -40,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: root.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        }
       });
     },
     { scope: root }
   );
 
   const fadeBottom = {
-    hidden: { opacity: 0, y: 32, filter: 'blur(4px)' },
+    hidden: { opacity: 0, y: 32, filter: 'blur(6px)' },
     show: {
       opacity: 1,
       y: 0,
@@ -85,13 +83,21 @@ export default function Hero() {
   return (
     <section ref={root} aria-label="Introduction" className="relative flex min-h-svh flex-col overflow-hidden">
 
-      <Orb className="hero-orb-1 -top-32 -right-32 w-150 h-150 bg-accent hidden sm:block" />
-      <Orb className="hero-orb-2 bottom-20 -left-40 w-125 h-125 bg-pop hidden sm:block" />
+      <div
+        ref={orb1Ref}
+        aria-hidden="true"
+        className="absolute -top-40 -right-40 hidden h-[600px] w-[600px] rounded-full bg-accent/[0.12] blur-[140px] pointer-events-none sm:block"
+      />
+      <div
+        ref={orb2Ref}
+        aria-hidden="true"
+        className="absolute bottom-10 -left-48 hidden h-[500px] w-[500px] rounded-full bg-pop/[0.09] blur-[130px] pointer-events-none sm:block"
+      />
 
       <div className="relative z-10 flex flex-1 flex-col justify-between pb-0 pt-28 md:pt-36">
 
         {/* Headline */}
-        <div className="hero-headline container-x my-14">
+        <div className="hero-headline container-x my-10 md:my-14">
           <SplitText
             as="h1"
             trigger="intro"
@@ -121,20 +127,19 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Marquee ticker strip */}
         <motion.div
-          variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 1.3, duration: 0.8 } } }}
+          variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 1.4, duration: 0.9 } } }}
           initial="hidden"
           animate={introDone ? 'show' : 'hidden'}
-          className="overflow-hidden border-t border-line/40 bg-muted py-2"
+          className="overflow-hidden border-t border-line/40 bg-muted py-2.5"
           aria-hidden="true"
         >
-          <div className="flex animate-[marquee_22s_linear_infinite] gap-10 whitespace-nowrap">
+          <div className="flex animate-[marquee_28s_linear_infinite] gap-12 whitespace-nowrap will-change-transform">
             {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
               <span
-                key={i}
-                className={`text-sm font-bold tracking-widest uppercase ${
-                  item === '—' ? 'text-surface/60' : 'text-surface'
+                key={`marquee-${i}`}
+                className={`text-sm font-bold tracking-[0.18em] uppercase ${
+                  item === '·' ? 'text-surface/65' : 'text-surface'
                 }`}
               >
                 {item}

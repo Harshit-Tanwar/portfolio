@@ -23,10 +23,32 @@ const pill =
 
 function PingDot({ className = 'bg-pop' }) {
   return (
-    <span className="relative flex size-2.5 shrink-0">
+    <span className="relative flex size-2.5 shrink-0" aria-hidden="true">
       <span className={`absolute inline-flex size-full animate-ping rounded-full opacity-70 ${className}`} />
       <span className={`relative inline-flex size-2.5 rounded-full ${className}`} />
     </span>
+  );
+}
+
+function ResumeIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="12" y1="18" x2="12" y2="12" />
+      <line x1="9" y1="15" x2="15" y2="15" />
+    </svg>
   );
 }
 
@@ -99,6 +121,8 @@ export default function Header() {
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-[70]">
         <div className="container-x relative flex items-start justify-between pt-4">
+
+          {/* Logo */}
           <motion.div animate={{ y: sideY }} transition={sideTransition}>
             <TransitionLink
               href="/"
@@ -113,6 +137,7 @@ export default function Header() {
             </TransitionLink>
           </motion.div>
 
+          {/* Center nav pill — desktop */}
           <div className="pointer-events-none absolute left-1/2 top-4 hidden -translate-x-1/2 md:block">
             <motion.nav
               aria-label="Primary"
@@ -158,7 +183,7 @@ export default function Header() {
               <motion.span
                 aria-hidden="true"
                 style={{ scaleX: progress }}
-                className="absolute inset-x-6 bottom-1.25 h-0.5 origin-left rounded-full bg-pop/80"
+                className="absolute inset-x-6 bottom-[5px] h-[2px] origin-left rounded-full bg-pop/70"
               />
             </motion.nav>
           </div>
@@ -167,20 +192,15 @@ export default function Header() {
             <div className="pointer-events-auto flex h-14 items-center gap-3">
 
               <div className="hidden md:block">
-                  <a
-                    href={site.resume}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-10 items-center gap-2  text-sm font-medium transition-colors duration-300  hover:text-accent"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14 2 14 8 20 8"/>
-                      <line x1="12" y1="18" x2="12" y2="12"/>
-                      <line x1="9" y1="15" x2="15" y2="15"/>
-                    </svg>
-                    Resume
-                  </a>
+                <a
+                  href={site.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 items-center gap-1.5 text-sm font-medium text-fg/80 transition-colors duration-300 hover:text-accent"
+                >
+                  <ResumeIcon />
+                  Resume
+                </a>
               </div>
 
               <div className="hidden md:block">
@@ -195,18 +215,21 @@ export default function Header() {
                   </TransitionLink>
                 </Magnetic>
               </div>
-              <ThemeToggle className="size-10! border-muted/20! hover:bg-mist/10!"/>
 
+              <ThemeToggle className="size-10! border-muted/20! hover:bg-mist/10!" />
+
+              {/* Mobile menu toggle */}
               <button
                 type="button"
                 onClick={() => setOpen((v) => !v)}
                 aria-expanded={open}
                 aria-controls="menu"
+                aria-label={open ? 'Close menu' : 'Open menu'}
                 className={`flex h-10 items-center gap-3 pl-2 pr-1 font-medium transition-colors duration-300 md:hidden ${
                   open ? 'text-mist' : 'text-fg'
                 }`}
               >
-                {open ? 'Close' : 'Menu'}
+                <span aria-hidden="true">{open ? 'Close' : 'Menu'}</span>
                 <span aria-hidden="true" className="relative block h-3 w-5">
                   <motion.span
                     className="absolute left-0 h-[2px] w-full rounded bg-current"
@@ -225,14 +248,17 @@ export default function Header() {
         </div>
       </header>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
             id="menu"
+            role="dialog"
+            aria-label="Navigation menu"
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.7, ease: ease.inOut }}
+            transition={{ duration: 0.72, ease: ease.inOut }}
             className="fixed inset-0 z-[60] flex flex-col justify-end bg-ink px-5 pb-8 pt-28 text-mist md:hidden"
           >
             <nav aria-label="Mobile">
@@ -240,8 +266,8 @@ export default function Header() {
                 {site.nav.map((item, i) => (
                   <motion.li
                     key={item.href}
-                    initial={{ y: 70, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1, transition: { delay: 0.3 + i * 0.07, duration: 0.8, ease: ease.out } }}
+                    initial={{ y: 60, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1, transition: { delay: 0.28 + i * 0.07, duration: 0.8, ease: ease.out } }}
                     className="border-b border-mist/15"
                   >
                     <TransitionLink
@@ -251,36 +277,43 @@ export default function Header() {
                       className="flex items-baseline justify-between gap-4 py-3 transition-colors hover:text-pop focus-visible:text-pop"
                     >
                       <span className="t-display">{item.label}</span>
-                      <span className="max-w-[9rem] text-right text-sm text-mist/60">{hints[item.label]}</span>
+                      <span className="max-w-[9rem] text-right text-sm text-mist/50">{hints[item.label]}</span>
                     </TransitionLink>
                   </motion.li>
                 ))}
               </ul>
             </nav>
 
-            <div className="mt-8 flex flex-col gap-5">
+            <div className="mt-10 flex flex-col gap-5">
               <span className="inline-flex w-fit items-center gap-2.5 text-sm">
-                <PingDot /> Open to work
+                <PingDot /> <span>Open to work</span>
               </span>
-              <a href={`mailto:${site.email}`} className="link-u w-fit text-xl">{site.email}</a>
+              <a
+                href={`mailto:${site.email}`}
+                className="link-u w-fit text-xl text-mist/80 hover:text-mist"
+              >
+                {site.email}
+              </a>
               <a
                 href={site.resume}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex w-fit items-center gap-2 rounded-full border border-mist/30 px-5 py-2.5 text-sm font-medium text-mist transition-colors hover:border-mist/60 hover:text-pop"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="12" y1="18" x2="12" y2="12"/>
-                  <line x1="9" y1="15" x2="15" y2="15"/>
-                </svg>
+                <ResumeIcon />
                 View Resume
               </a>
-              <ul className="flex gap-6 text-mist/70">
+              <ul className="flex gap-6 text-mist/60">
                 {site.socials.map((s) => (
                   <li key={s.label}>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer" className="link-u hover:text-mist">{s.label}</a>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-u hover:text-mist"
+                    >
+                      {s.label}
+                    </a>
                   </li>
                 ))}
               </ul>

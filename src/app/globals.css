@@ -11,11 +11,14 @@
   --on-accent: #f6f5ff;
   --accent-text: #2b2be6;
   --pop: #ffb800;
-  /* --stage: #3b3bff; */
   --stage: #8a35cf7a;
-
   --ink: #14143a;
   --mist: #eeedf8;
+
+  --shadow-sm: 0 1px 3px 0 rgba(20,20,58,0.08), 0 1px 2px -1px rgba(20,20,58,0.06);
+  --shadow-md: 0 4px 16px -4px rgba(20,20,58,0.12), 0 2px 6px -2px rgba(20,20,58,0.08);
+  --shadow-lg: 0 20px 50px -12px rgba(20,20,58,0.18), 0 8px 20px -8px rgba(20,20,58,0.10);
+
   color-scheme: light;
 }
 
@@ -32,6 +35,11 @@
   --stage: #8a35cf7a;
   --ink: #14143a;
   --mist: #eeedf8;
+
+  --shadow-sm: 0 1px 3px 0 rgba(0,0,0,0.3), 0 1px 2px -1px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px -4px rgba(0,0,0,0.4), 0 2px 6px -2px rgba(0,0,0,0.3);
+  --shadow-lg: 0 20px 50px -12px rgba(0,0,0,0.6), 0 8px 20px -8px rgba(0,0,0,0.4);
+
   color-scheme: dark;
 }
 
@@ -50,6 +58,7 @@
   --color-mist: var(--mist);
   --font-sans: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Newsreader Variable", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Fira Code", monospace;
 }
 
 html { scroll-behavior: auto; }
@@ -63,10 +72,11 @@ body {
   color: var(--fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 html[data-intro="on"] body { overflow: hidden; }
 
@@ -82,19 +92,25 @@ html[data-intro="on"] body { overflow: hidden; }
   border-radius: 4px;
 }
 
-::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar { width: 3px; height: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 9999px;
-}
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 9999px; }
+::-webkit-scrollbar-corner { background: transparent; }
 * { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+
+a { text-underline-offset: 3px; }
+input, textarea { caret-color: var(--accent-text); }
 
 
 
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
 }
 
 
@@ -108,39 +124,56 @@ html[data-intro="on"] .preloader { display: flex; }
   .wk-list { display: none; }
 }
 
+
 @layer components {
-  .container-x { width: min(100% - 2.5rem, 96rem); margin-inline: auto; }
+
+  .container-x {
+    width: min(100% - 2.5rem, 96rem);
+    margin-inline: auto;
+  }
+
 
   .t-display {
-    font-weight: 800; font-stretch: 75%;
+    font-weight: 800;
+    font-stretch: 75%;
     font-size: clamp(3.25rem, 11.5vw, 12rem);
-    line-height: 0.88; letter-spacing: -0.03em;
+    line-height: 0.88;
+    letter-spacing: -0.03em;
   }
+
   .t-h2 {
-    font-weight: 780; font-stretch: 78%;
+    font-weight: 780;
+    font-stretch: 78%;
     font-size: clamp(2.75rem, 8vw, 7.5rem);
-    line-height: 0.9; letter-spacing: -0.025em;
+    line-height: 0.9;
+    letter-spacing: -0.025em;
   }
+
   .t-h3 {
-    font-weight: 700; font-stretch: 85%;
+    font-weight: 700;
+    font-stretch: 85%;
     font-size: clamp(1.75rem, 3.4vw, 3.25rem);
-    line-height: 1; letter-spacing: -0.018em;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
+
   .t-statement {
-    font-weight: 600; font-stretch: 90%;
+    font-weight: 600;
+    font-stretch: 90%;
     font-size: clamp(1.9rem, 4.2vw, 4rem);
-    line-height: 1.08; letter-spacing: -0.022em;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
   }
+
   .t-prose {
     font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+    font-size: clamp(1.05rem, 1.3vw, 1.3rem);
     font-weight: 400;
-    line-height: 1.7;
-    max-width: 60ch;
-    /* Cormorant optical sizing — unlocks refined hairline strokes */
+    line-height: 1.72;
+    max-width: 62ch;
     font-optical-sizing: auto;
   }
-  /* Cormorant italic pull-quote — use for statements */
+
   .t-serif-display {
     font-family: var(--font-serif);
     font-style: italic;
@@ -150,10 +183,11 @@ html[data-intro="on"] .preloader { display: flex; }
     letter-spacing: -0.02em;
     font-optical-sizing: auto;
   }
+
   .t-label {
-    font-family: var(--font-ui);
+    font-family: var(--font-sans);
     font-size: 0.72rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.13em;
     text-transform: uppercase;
   }
@@ -161,8 +195,10 @@ html[data-intro="on"] .preloader { display: flex; }
   .link-u {
     background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
     transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
   }
-  .link-u:hover, .link-u:focus-visible { background-size: 30% 1px; }
+  .link-u:hover,
+  .link-u:focus-visible { background-size: 100% 1px; }
 
   .clip-reveal {
     clip-path: inset(0 0 100% 0);

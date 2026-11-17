@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MoonIcon, SunIcon } from './Icons';
 
-
 export default function ThemeToggle({ className = '' }) {
   const [theme, setTheme] = useState(null);
 
@@ -22,7 +21,7 @@ export default function ThemeToggle({ className = '' }) {
       type="button"
       onClick={toggle}
       aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-      className={`group relative grid size-11 place-items-center overflow-hidden rounded-full border border-current/25 transition-all duration-400 hover:border-current hover:bg-surface/50 ${className}`}
+      className={`group relative grid size-11 place-items-center overflow-hidden rounded-full border border-current/20 transition-all duration-300 hover:border-current/50 hover:bg-fg/8 ${className}`}
       data-cursor=""
     >
       <AnimatePresence mode="wait" initial={false}>

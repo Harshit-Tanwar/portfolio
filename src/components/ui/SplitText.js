@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ease } from '@/lib/motion';
 import { usePageTransition } from '@/components/providers/TransitionProvider';
 
@@ -27,21 +28,29 @@ export default function SplitText({
   trigger = 'view',
 }) {
   const { introDone } = usePageTransition();
+  const ref = useRef(null);
+
+  // useInView with `once: true` latches permanently once it enters the viewport.
+  // We gate on introDone so whileInView can't fire while the preloader covers it.
+  const inView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' });
+
   const Tag = motion[as];
-  const trigProps =
-    trigger === 'intro'
-      ? { animate: introDone ? 'show' : 'hidden' }
-      : { whileInView: 'show', viewport: { once: true, margin: '0px 0px -10% 0px' } };
+
+  // For intro-triggered words: play when introDone flips.
+  // For view-triggered words: play when BOTH inView AND introDone are true —
+  // so the preloader can't swallow the animation.
+  const shouldShow = trigger === 'intro' ? introDone : introDone && inView;
 
   let n = 0;
   const lines = String(text).split('\n');
 
   return (
     <Tag
+      ref={ref}
       className={className}
       aria-label={String(text).replace(/\n/g, ' ')}
       initial="hidden"
-      {...trigProps}
+      animate={shouldShow ? 'show' : 'hidden'}
     >
       {lines.map((line, li) => (
         <span key={li} aria-hidden="true" className="block">

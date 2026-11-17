@@ -20,7 +20,7 @@ export default function Footer() {
     try {
       await navigator.clipboard.writeText(site.email);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2200);
+      setTimeout(() => setCopied(false), 2400);
     } catch {
       window.location.href = `mailto:${site.email}`;
     }
@@ -28,15 +28,11 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative overflow-hidden bg-ink text-mist">
-      {/* Ambient glow */}
-      {/* <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-32 left-1/2 h-80 w-96 -translate-x-1/2 rounded-full bg-accent/20 blur-[100px]"
-      /> */}
+ 
 
       <div ref={ref} className="container-x relative z-10 pb-10 pt-28 md:pt-40">
 
-        {/* Big CTA */}
+        {/* Label */}
         <motion.p
           variants={fadeUp(0)}
           initial="hidden"
@@ -46,15 +42,22 @@ export default function Footer() {
           Get in touch
         </motion.p>
 
+        {/* Headline */}
         <SplitText as="h2" className="t-display max-w-[14ch]" stagger={0.045}>
           {'Have a role or a project in mind?'}
         </SplitText>
 
         {/* Email — skew distortion on hover */}
-        <div className="mt-14 overflow-hidden">
+        <motion.div
+          variants={fadeUp(0.1)}
+          initial="hidden"
+          animate={inView ? 'show' : 'hidden'}
+          className="mt-14 overflow-hidden"
+        >
           <motion.a
             href={`mailto:${site.email}`}
             data-cursor="Write"
+            aria-label={`Send email to ${site.email}`}
             className="inline-block break-all font-semibold leading-none"
             style={{
               fontSize: 'clamp(1.6rem, 5vw, 4.5rem)',
@@ -64,18 +67,18 @@ export default function Footer() {
             onHoverEnd={() => setEmailHover(false)}
             animate={{
               skewX: emailHover ? -4 : 0,
-              x: emailHover ? 12 : 0,
+              x: emailHover ? 14 : 0,
               color: emailHover ? 'var(--pop)' : 'var(--mist)',
             }}
-            transition={{ duration: 0.4, ease: ease.out }}
+            transition={{ duration: 0.35, ease: ease.out }}
           >
             {site.email}
           </motion.a>
-        </div>
+        </motion.div>
 
-        {/* CTA buttons */}
+        {/* CTA row */}
         <motion.div
-          variants={fadeUp(0.15)}
+          variants={fadeUp(0.18)}
           initial="hidden"
           animate={inView ? 'show' : 'hidden'}
           className="mt-10 flex flex-wrap gap-3"
@@ -93,15 +96,16 @@ export default function Footer() {
           className="mt-28 h-px bg-mist/10"
           initial={{ scaleX: 0, originX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 1.2, ease: ease.out, delay: 0.3 }}
+          transition={{ duration: 1.4, ease: ease.out, delay: 0.3 }}
+          style={{ transformOrigin: 'left' }}
         />
 
         {/* Bottom bar */}
         <motion.div
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.4 } } }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.5 } } }}
           initial="hidden"
           animate={inView ? 'show' : 'hidden'}
-          className="mt-8 flex flex-col gap-6 text-mist/50 md:flex-row md:items-center md:justify-between"
+          className="mt-8 flex flex-col gap-6 text-mist/60 md:flex-row md:items-center md:justify-between"
         >
           <motion.p variants={fadeUp(0)} className="text-sm">
             &copy; {new Date().getFullYear()} {site.name}
@@ -123,7 +127,7 @@ export default function Footer() {
           </motion.ul>
 
           <motion.div variants={fadeUp(0)}>
-            <LocalTime className="text-sm" />
+            <LocalTime className="text-sm tabular-nums" />
           </motion.div>
 
           <motion.button
@@ -131,9 +135,15 @@ export default function Footer() {
             type="button"
             onClick={() => scrollTo(0)}
             data-cursor=""
+            aria-label="Back to top"
             className="group flex w-fit items-center gap-2 text-sm transition-colors duration-300 hover:text-mist"
           >
-            <span className="inline-block transition-transform duration-400 group-hover:-translate-y-0.5">↑</span>
+            <span
+              aria-hidden="true"
+              className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
+            >
+              ↑
+            </span>
             Back to top
           </motion.button>
         </motion.div>

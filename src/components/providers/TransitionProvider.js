@@ -11,12 +11,12 @@ import { useSmoothScroll } from './SmoothScroll';
 const TransitionContext = createContext(null);
 export const usePageTransition = () => useContext(TransitionContext);
 
-const COVER_MS = 750;
+const COVER_MS = 700;
 
 /** Two stacked panels wipe up over the page, then wipe away on the new route. */
 const layers = [
-  { className: 'bg-pop', custom: 0 },
-  { className: 'bg-stage text-mist', custom: 1, label: true },
+  { className: 'bg-accent', custom: 0 },
+  { className: 'bg-accent text-mist', custom: 1, label: true },
 ];
 
 const panel = {

@@ -93,7 +93,7 @@ export default function Work({ projects }) {
       <div className="wk-list bg-stage py-24 text-mist">
         <div className="container-x">
           <h2 className="t-h2">Selected work</h2>
-          <ul className="mt-14 grid sm:grid-cols-2 xl:grid-cols-3">
+          <ul className="mt-14 grid gap-x-6 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
             {projects.map((p, i) => (
               <ListCard key={p.slug} project={p} index={i} />
             ))}

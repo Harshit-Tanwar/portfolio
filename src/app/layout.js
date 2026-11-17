@@ -58,12 +58,11 @@ export const viewport = {
   ],
 };
 
-/** Runs before first paint: picks the theme and decides whether to show the intro. */
-const initScript = `(function(){var d=document.documentElement,t='light',i='off';try{
+const initScript = `(function(){var d=document.documentElement,t='light';try{
 var s=localStorage.getItem('theme');
 t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-if(!sessionStorage.getItem('intro-seen')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)i='on';
-}catch(e){}d.dataset.theme=t;d.dataset.intro=i;})();`;
+if(sessionStorage.getItem('intro-seen')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.intro='off';
+}catch(e){}d.dataset.theme=t;})();`;
 
 const noscriptCss = `.split-word{transform:none!important}.preloader{display:none!important}body{overflow:auto!important}`;
 
@@ -91,14 +90,14 @@ const person = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-intro="on" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: initScript }} />
         <noscript>
           <style>{noscriptCss}</style>
         </noscript>
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <SmoothScroll>
           <TransitionProvider>
             <a
